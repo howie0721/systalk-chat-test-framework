@@ -28,3 +28,12 @@ test-results/
 # 環境變數
 .env
 .env.local
+
+# 配置（敏感資訊）
+config/environments/*.yaml
+!config/environments/dev.yaml.example
+
+# 測試報告
+reports/
+*.log
+test-results/

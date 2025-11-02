@@ -1,0 +1,23 @@
+# 開發環境配置範例
+# 複製此文件為 dev.yaml 並填入實際值
+
+env: dev
+base_url: http://localhost:3000
+api_url: http://localhost:3000/api
+
+# API 設定
+api_timeout: 30
+max_retries: 3
+
+# LLM 設定（測試用）
+llm:
+  provider: openai
+  model: gpt-3.5-turbo
+  temperature: 0.7
+  max_tokens: 500
+
+# 測試設定
+test:
+  parallel_workers: 4
+  screenshot_on_failure: true
+  video_on_failure: false

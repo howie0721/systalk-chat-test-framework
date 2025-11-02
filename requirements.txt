@@ -12,6 +12,14 @@ playwright==1.40.0
 requests==2.31.0
 httpx==0.25.2
 
+# API 測試工具 (符合 JD 要求)
+pytest-requests==0.1.1
+requests-toolbelt==1.0.0
+
+# 效能測試 (JMeter 整合)
+locust==2.20.0  # Python 版的效能測試工具，可替代 JMeter
+pytest-benchmark==4.0.0  # 效能基準測試
+
 # AI/ML 測試
 transformers==4.35.2
 torch==2.9.0
