@@ -1,0 +1,30 @@
+# 核心測試框架
+pytest==7.4.3
+pytest-asyncio==0.21.1
+pytest-xdist==3.5.0
+pytest-cov==4.1.0
+pytest-html==4.1.1
+
+# UI 測試
+playwright==1.40.0
+
+# API 測試
+requests==2.31.0
+httpx==0.25.2
+
+# AI/ML 測試
+transformers==4.35.2
+torch==2.9.0
+nltk==3.8.1
+spacy==3.7.2
+
+# 資料處理
+pandas==2.1.4
+numpy==1.26.2
+
+# 測試報告
+allure-pytest==2.13.2
+
+# 工具
+python-dotenv==1.0.0
+pyyaml==6.0.1
