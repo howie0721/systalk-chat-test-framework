@@ -5,6 +5,12 @@
 import pytest
 from pathlib import Path
 
+# 導入所有 fixtures（讓 pytest 可以發現它們）
+pytest_plugins = [
+    "fixtures.browser_fixtures",
+    "fixtures.api_fixtures",
+]
+
 
 # ==================== 路徑 Fixtures ====================
 
