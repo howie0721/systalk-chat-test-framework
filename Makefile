@@ -233,3 +233,41 @@ git-setup: ## 設定 Git hooks
 commit: format lint ## 格式化、檢查並準備提交
 	@echo "$(GREEN)✅ Ready to commit!$(NC)"
 	@echo "$(YELLOW)Run: git add . && git commit$(NC)"
+
+# ============================================================================
+# 資料管理
+# ============================================================================
+
+data-generate: ## 生成測試資料
+	@echo "$(BLUE)📊 Generating test data...$(NC)"
+	python utils/test_data_generator.py
+	@echo "$(GREEN)✅ Test data generated!$(NC)"
+
+data-validate: ## 驗證測試資料
+	@echo "$(BLUE)📋 Validating test data...$(NC)"
+	python utils/test_data_validator.py
+	@echo "$(GREEN)✅ Test data validated!$(NC)"
+
+data-pipeline: ## 執行完整資料管道
+	@echo "$(BLUE)🔄 Running data pipeline...$(NC)"
+	dvc repro
+	@echo "$(GREEN)✅ Data pipeline completed!$(NC)"
+
+dvc-init: ## 初始化 DVC
+	@echo "$(BLUE)🔧 Initializing DVC...$(NC)"
+	dvc init
+	@echo "$(GREEN)✅ DVC initialized!$(NC)"
+
+dvc-push: ## 推送資料到遠端儲存
+	@echo "$(BLUE)⬆️  Pushing data to remote storage...$(NC)"
+	dvc push
+	@echo "$(GREEN)✅ Data pushed!$(NC)"
+
+dvc-pull: ## 從遠端儲存拉取資料
+	@echo "$(BLUE)⬇️  Pulling data from remote storage...$(NC)"
+	dvc pull
+	@echo "$(GREEN)✅ Data pulled!$(NC)"
+
+dvc-status: ## 檢查 DVC 狀態
+	@echo "$(BLUE)📊 Checking DVC status...$(NC)"
+	dvc status

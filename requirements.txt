@@ -44,3 +44,7 @@ opentelemetry-exporter-otlp==1.38.0
 opentelemetry-exporter-prometheus==0.59b0
 opentelemetry-instrumentation-requests==0.59b0
 prometheus-client==0.19.0
+
+# 資料版本控制
+dvc==3.50.0
+dvc-s3==3.2.0  # 如果使用 S3 儲存

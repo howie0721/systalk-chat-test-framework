@@ -1,0 +1,9 @@
+# DVC Pipeline 配置
+# 用於定義資料處理流程
+# 
+# 使用方式：
+# - dvc repro: 執行完整流程
+# - dvc dag: 查看流程圖
+# 
+# 注意: 如果要追蹤整個資料目錄，請使用 'dvc add data/test_datasets'
+# 而不是在 pipeline 中追蹤個別檔案
