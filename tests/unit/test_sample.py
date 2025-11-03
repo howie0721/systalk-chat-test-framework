@@ -1,4 +1,5 @@
 """單元測試範例"""
+
 import pytest
 
 
@@ -8,10 +9,10 @@ def test_basic_assertion():
     # Arrange（準備）
     a = 1
     b = 2
-    
+
     # Act（執行）
     result = a + b
-    
+
     # Assert（驗證）
     assert result == 3, "1 + 2 應該等於 3"
 
@@ -28,7 +29,7 @@ def test_fixture_usage(sample_chat_message):
 def test_string_operations():
     """測試字串操作"""
     text = "Hello SysTalk.Chat"
-    
+
     assert "SysTalk" in text
     assert text.startswith("Hello")
     assert len(text) > 0

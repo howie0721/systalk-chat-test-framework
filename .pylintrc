@@ -1,0 +1,52 @@
+# Pylint 配置文件
+# 用於更嚴格的程式碼品質檢查
+
+[MASTER]
+# 使用多個進程加速 pylint
+jobs=0
+
+# 忽略的檔案或目錄
+ignore=CVS,.git,__pycache__,.pytest_cache,venv,.venv,build,dist
+
+[MESSAGES CONTROL]
+# 禁用特定警告
+disable=
+    C0111,  # missing-docstring
+    C0103,  # invalid-name
+    R0903,  # too-few-public-methods
+    R0913,  # too-many-arguments
+    W0212,  # protected-access
+    C0330,  # bad-continuation
+
+[FORMAT]
+# 最大行長度
+max-line-length=127
+
+# 最大模組行數
+max-module-lines=1000
+
+[DESIGN]
+# 最大參數數量
+max-args=7
+
+# 最大本地變數數量
+max-locals=15
+
+# 最大返回數量
+max-returns=6
+
+# 最大分支數量
+max-branches=12
+
+[SIMILARITIES]
+# 最小相似行數
+min-similarity-lines=4
+
+# 忽略註釋
+ignore-comments=yes
+
+# 忽略文檔字串
+ignore-docstrings=yes
+
+# 忽略 imports
+ignore-imports=yes

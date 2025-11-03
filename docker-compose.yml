@@ -1,0 +1,74 @@
+# Docker Compose 配置
+# 用於本地開發和測試環境
+
+version: '3.8'
+
+services:
+  test-runner:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: systalk-test-runner
+    volumes:
+      - .:/app
+      - test-results:/app/test-results
+      - coverage-reports:/app/htmlcov
+    environment:
+      - ENVIRONMENT=ci
+      - PYTHONPATH=/app
+    command: >
+      sh -c "
+        echo '🚀 Running all tests...' &&
+        pytest -v --cov=. --cov-report=html --cov-report=term &&
+        echo '✅ Tests completed!'
+      "
+    networks:
+      - test-network
+
+  code-quality:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: systalk-code-quality
+    volumes:
+      - .:/app
+    command: >
+      sh -c "
+        echo '🔍 Running code quality checks...' &&
+        black --check --diff . &&
+        isort --check-only --diff . &&
+        flake8 . &&
+        pylint **/*.py --exit-zero &&
+        echo '✅ Code quality checks completed!'
+      "
+    networks:
+      - test-network
+
+  security-scan:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: systalk-security-scan
+    volumes:
+      - .:/app
+      - security-reports:/app/security-reports
+    command: >
+      sh -c "
+        echo '🔒 Running security scans...' &&
+        mkdir -p security-reports &&
+        bandit -r . -f json -o security-reports/bandit-report.json || true &&
+        bandit -r . &&
+        safety check --json || true &&
+        echo '✅ Security scans completed!'
+      "
+    networks:
+      - test-network
+
+volumes:
+  test-results:
+  coverage-reports:
+  security-reports:
+
+networks:
+  test-network:
+    driver: bridge

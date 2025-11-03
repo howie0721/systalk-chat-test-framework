@@ -1,0 +1,36 @@
+# Flake8 配置文件
+# 用於 Python 程式碼風格檢查
+
+[flake8]
+max-line-length = 127
+exclude =
+    .git,
+    __pycache__,
+    .pytest_cache,
+    .venv,
+    venv,
+    build,
+    dist,
+    *.egg-info,
+    .tox,
+    htmlcov,
+    .coverage
+
+# 忽略特定錯誤
+ignore =
+    E203,  # whitespace before ':'
+    E501,  # line too long (handled by black)
+    W503,  # line break before binary operator
+    E402,  # module level import not at top of file (允許在 conftest.py 中)
+
+# 每個檔案的最大複雜度
+max-complexity = 10
+
+# 顯示錯誤來源
+show-source = True
+
+# 統計
+statistics = True
+
+# 顯示錯誤上下文
+show-pep8 = True

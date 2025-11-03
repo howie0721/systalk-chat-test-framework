@@ -1,0 +1,38 @@
+# Bandit 配置文件
+# 用於 Python 安全問題檢查
+
+[bandit]
+# 排除的路徑
+exclude_dirs = 
+    /tests/
+    /.venv/
+    /venv/
+    /__pycache__/
+    /.pytest_cache/
+    /build/
+    /dist/
+
+# 嚴重性等級
+# 只報告 MEDIUM 和 HIGH 等級的問題
+level = MEDIUM
+
+# 信心等級
+# 只報告 MEDIUM 和 HIGH 信心的問題
+confidence = MEDIUM
+
+# 要執行的測試（留空表示全部）
+tests = 
+
+# 要跳過的測試
+skips = 
+    B101,  # assert_used
+    B601,  # paramiko_calls
+    B602,  # subprocess_popen_with_shell_equals_true
+    B603,  # subprocess_without_shell_equals_true
+    B607,  # start_process_with_partial_path
+
+# 輸出格式
+format = json
+
+# 遞迴搜尋
+recursive = True

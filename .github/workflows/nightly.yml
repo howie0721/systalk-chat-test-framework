@@ -1,0 +1,148 @@
+name: Nightly Build
+
+on:
+  schedule:
+    # 每天凌晨 2 點（UTC）執行
+    - cron: '0 2 * * *'
+  workflow_dispatch:  # 允許手動觸發
+
+jobs:
+  nightly-test:
+    name: Nightly Full Test Suite
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+        cache: 'pip'
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        
+    - name: Install Playwright browsers
+      run: |
+        playwright install --with-deps
+        
+    - name: Run full test suite
+      run: |
+        pytest -v --cov=. --cov-report=html --cov-report=xml --cov-report=term \
+               --html=nightly-report.html --self-contained-html
+        
+    - name: Generate test summary
+      run: |
+        echo "## Nightly Build Test Summary" > nightly-summary.md
+        echo "Date: $(date)" >> nightly-summary.md
+        echo "" >> nightly-summary.md
+        pytest --collect-only -q | tail -n 1 >> nightly-summary.md
+        
+    - name: Upload test results
+      uses: actions/upload-artifact@v4
+      with:
+        name: nightly-test-results
+        path: |
+          nightly-report.html
+          htmlcov/
+          nightly-summary.md
+        retention-days: 7
+        
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v4
+      with:
+        file: ./coverage.xml
+        flags: nightly
+        name: nightly-coverage
+      env:
+        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
+  performance-test:
+    name: Performance Testing
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install pytest-benchmark
+        
+    - name: Run performance tests
+      run: |
+        pytest tests/ -v --benchmark-only --benchmark-json=benchmark-results.json
+      continue-on-error: true
+        
+    - name: Upload benchmark results
+      uses: actions/upload-artifact@v4
+      with:
+        name: benchmark-results
+        path: benchmark-results.json
+        retention-days: 30
+      if: always()
+
+  dependency-check:
+    name: Check for Dependency Updates
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+        
+    - name: Install pip-tools
+      run: |
+        pip install pip-tools pip-audit
+        
+    - name: Check for outdated packages
+      run: |
+        pip list --outdated > outdated-packages.txt || true
+        cat outdated-packages.txt
+        
+    - name: Audit dependencies for vulnerabilities
+      run: |
+        pip-audit --desc > security-audit.txt || true
+        cat security-audit.txt
+        
+    - name: Upload dependency reports
+      uses: actions/upload-artifact@v4
+      with:
+        name: dependency-reports
+        path: |
+          outdated-packages.txt
+          security-audit.txt
+        retention-days: 7
+
+  notify-results:
+    name: Send Nightly Build Notification
+    needs: [nightly-test, performance-test, dependency-check]
+    runs-on: ubuntu-latest
+    if: always()
+    
+    steps:
+    - name: Check build status
+      run: |
+        echo "Nightly test: ${{ needs.nightly-test.result }}"
+        echo "Performance test: ${{ needs.performance-test.result }}"
+        echo "Dependency check: ${{ needs.dependency-check.result }}"
+        
+    - name: Send notification (placeholder)
+      run: |
+        echo "Send notification to team about nightly build results"
+        # 這裡可以整合 Slack, Email, 或其他通知服務

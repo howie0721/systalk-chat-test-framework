@@ -1,4 +1,5 @@
 """整合測試範例 - 測試配置載入"""
+
 import pytest
 from pathlib import Path
 
@@ -18,7 +19,7 @@ def test_project_structure(project_root):
     assert (project_root / "tests").exists()
     assert (project_root / "fixtures").exists()
     assert (project_root / "config").exists()
-    
+
     # 驗證配置文件存在
     assert (project_root / "pytest.ini").exists()
     assert (project_root / "pyproject.toml").exists()

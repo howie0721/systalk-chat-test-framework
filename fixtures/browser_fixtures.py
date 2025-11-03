@@ -2,6 +2,7 @@
 Browser Fixtures - Playwright 瀏覽器相關 fixtures
 提供瀏覽器、頁面等測試資源
 """
+
 import pytest
 from playwright.sync_api import Browser, BrowserContext, Page, Playwright, sync_playwright
 from pathlib import Path
@@ -29,7 +30,7 @@ def browser(playwright_instance: Playwright):
     logger.info("啟動 Chromium 瀏覽器")
     browser = playwright_instance.chromium.launch(
         headless=True,  # 設為 False 可看到瀏覽器視窗
-        slow_mo=100,    # 放慢操作速度（毫秒），方便觀察
+        slow_mo=100,  # 放慢操作速度（毫秒），方便觀察
     )
     yield browser
     logger.info("關閉瀏覽器")
@@ -62,18 +63,18 @@ def page(context: BrowserContext, request, reports_dir):
     """
     logger.info("創建新頁面")
     page = context.new_page()
-    
+
     yield page
-    
+
     # 測試失敗時自動截圖
     if request.node.rep_call.failed:
         screenshot_dir = reports_dir / "screenshots"
         screenshot_dir.mkdir(exist_ok=True)
-        
+
         screenshot_path = screenshot_dir / f"{request.node.name}_failure.png"
         logger.info(f"測試失敗，保存截圖: {screenshot_path}")
         page.screenshot(path=str(screenshot_path))
-    
+
     logger.info("關閉頁面")
     page.close()
 
@@ -92,21 +93,21 @@ def mobile_page(browser: Browser, request, reports_dir):
         "has_touch": True,
         "user_agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 14_7_1 like Mac OS X) AppleWebKit/605.1.15",
     }
-    
+
     context = browser.new_context(**iphone_12_pro)
     page = context.new_page()
-    
+
     yield page
-    
+
     # 測試失敗時自動截圖
     if request.node.rep_call.failed:
         screenshot_dir = reports_dir / "screenshots"
         screenshot_dir.mkdir(exist_ok=True)
-        
+
         screenshot_path = screenshot_dir / f"{request.node.name}_mobile_failure.png"
         logger.info(f"測試失敗，保存截圖: {screenshot_path}")
         page.screenshot(path=str(screenshot_path))
-    
+
     page.close()
     context.close()
 

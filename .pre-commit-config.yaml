@@ -1,0 +1,70 @@
+# Pre-commit hooks 配置
+# 在 commit 之前自動執行程式碼檢查
+
+repos:
+  # Black - 程式碼格式化工具
+  - repo: https://github.com/psf/black
+    rev: 24.3.0
+    hooks:
+      - id: black
+        language_version: python3.12
+        args: ['--line-length=127']
+
+  # isort - import 排序
+  - repo: https://github.com/pycqa/isort
+    rev: 5.13.2
+    hooks:
+      - id: isort
+        args: ['--profile', 'black', '--line-length', '127']
+
+  # Flake8 - 程式碼風格檢查
+  - repo: https://github.com/pycqa/flake8
+    rev: 7.0.0
+    hooks:
+      - id: flake8
+        args: ['--config=.flake8']
+        additional_dependencies: [flake8-docstrings]
+
+  # Trailing whitespace
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-added-large-files
+        args: ['--maxkb=1000']
+      - id: check-json
+      - id: check-toml
+      - id: check-merge-conflict
+      - id: debug-statements
+      - id: mixed-line-ending
+
+  # Bandit - 安全檢查
+  - repo: https://github.com/PyCQA/bandit
+    rev: 1.7.7
+    hooks:
+      - id: bandit
+        args: ['-c', '.bandit', '-r', '.']
+        exclude: ^tests/
+
+  # MyPy - 類型檢查
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.8.0
+    hooks:
+      - id: mypy
+        args: ['--config-file=mypy.ini']
+        additional_dependencies: [types-requests]
+        exclude: ^tests/
+
+  # Pytest check
+  - repo: local
+    hooks:
+      - id: pytest-check
+        name: pytest-check
+        entry: pytest
+        language: system
+        args: ['tests/unit/', '-v', '--tb=short']
+        pass_filenames: false
+        always_run: false
+        stages: [manual]  # 只在手動時執行
