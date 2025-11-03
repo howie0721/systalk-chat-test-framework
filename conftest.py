@@ -90,6 +90,40 @@ def sample_test_cases():
     ]
 
 
+# ==================== AI/LLM Fixtures ====================
+
+@pytest.fixture
+def chat_model():
+    """AI 聊天模型 fixture"""
+    from ai_models.chat_model import ChatModel
+    model = ChatModel(model_name="gpt-3.5-turbo", temperature=0.7)
+    yield model
+    # Teardown: 清理對話歷史
+    model.clear_history()
+
+
+@pytest.fixture
+def chat_model_low_temp():
+    """低溫度的聊天模型（更確定性的回應）"""
+    from ai_models.chat_model import ChatModel
+    model = ChatModel(model_name="gpt-3.5-turbo", temperature=0.1)
+    yield model
+    model.clear_history()
+
+
+@pytest.fixture
+def sample_prompts():
+    """測試用的 prompt 範例"""
+    return {
+        "greeting": "你好",
+        "question": "台灣的首都是哪裡？",
+        "account_query": "我想查詢我的帳戶餘額",
+        "weather": "今天台北天氣如何？",
+        "empty": "",
+        "long_text": "這是一個很長的問題" * 100,
+    }
+
+
 # ==================== Pytest Hooks ====================
 
 def pytest_configure(config):

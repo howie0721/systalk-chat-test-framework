@@ -5,17 +5,16 @@ import pytest
 
 @pytest.mark.smoke
 @pytest.mark.unit
-def test_TC_UNIT_0001_basic_assertion():
-    """TC-UNIT-0001: 最基礎的測試：驗證 Python 基本運算"""
+def test_TC_UNIT_0001_model_reply_hello(chat_model):
+    """TC-UNIT-0001: 驗證 AI 模型能正確回應「你好」"""
     # Arrange（準備）
-    a = 1
-    b = 2
+    prompt = "你好"
 
     # Act（執行）
-    result = a + b
+    response = chat_model.reply(prompt)
 
     # Assert（驗證）
-    assert result == 3, "1 + 2 應該等於 3"
+    assert "你好" in response or "Hello" in response, "模型回應應包含問候語"
 
 
 @pytest.mark.smoke
