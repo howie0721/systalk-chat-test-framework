@@ -49,42 +49,64 @@ systalk-chat-test-framework/
 │   ├── unit/                   # 單元測試
 │   ├── integration/            # 整合測試
 │   ├── e2e/                    # E2E 測試
-│   └── security/               # 安全測試
-├── models/                     # AI 測試工具
+│   ├── ai_quality/             # AI 品質測試
+│   ├── ai_specific/            # AI 特定測試
+│   ├── llm_specific/           # LLM 特定測試
+│   ├── security/               # 安全測試
+│   └── performance/            # 效能測試
+├── ai_models/                  # AI 測試工具
 │   ├── response_evaluator.py  # 回應評估器
 │   ├── hallucination_detector.py  # 幻覺檢測器
 │   ├── drift_monitor.py        # 漂移監控器
 │   └── bias_detector.py        # 偏見檢測器
+├── pages/                      # 頁面物件模型 (Page Object Model)
+│   ├── base_page.py            # 基礎頁面類別
+│   └── chat_page.py            # 聊天頁面
+├── fixtures/                   # 測試 Fixtures
+│   ├── api_fixtures.py         # API 測試 fixtures
+│   └── browser_fixtures.py     # 瀏覽器測試 fixtures
 ├── monitoring/                 # 監控系統
 │   ├── observability.py        # OpenTelemetry 整合
 │   ├── pytest_plugin.py        # Pytest 監控插件
 │   ├── ai_metrics_collector.py # AI 指標收集器
-│   └── grafana_dashboard.json  # Grafana 儀表板
-├── page_objects/               # 頁面物件模型
-│   ├── base_page.py            # 基礎頁面類別
-│   └── chat_page.py            # 聊天頁面
+│   ├── prometheus/             # Prometheus 配置
+│   └── grafana/                # Grafana 儀表板
 ├── utils/                      # 工具程式
 │   ├── test_data_generator.py # 測試資料生成器
 │   └── test_data_validator.py # 資料驗證器
 ├── config/                     # 配置檔案
-│   ├── pytest.ini              # Pytest 配置
-│   └── config.yaml             # 應用配置
+│   ├── environments/           # 環境配置
+│   └── *.yaml                  # YAML 配置檔
 ├── data/                       # 測試資料 (DVC 管理)
-│   └── test_datasets/          # 測試資料集
+│   ├── test_datasets/          # 測試資料集
+│   └── golden_datasets/        # 黃金標準資料集
+├── docker/                     # Docker 相關檔案
 ├── .github/                    # GitHub Actions
 │   └── workflows/              # CI/CD 工作流程
-├── docs/                       # 完整文件
+│       ├── ci.yml              # 持續整合
+│       ├── nightly.yml         # 夜間測試
+│       └── release.yml         # 發布流程
+├── docs/                       # 完整文件 (6300+ 行)
 │   ├── ARCHITECTURE.md         # 系統架構
 │   ├── API.md                  # API 文件
 │   ├── TESTING_GUIDE.md        # 測試指南
-│   ├── MONITORING.md           # 監控指南
+│   ├── MONITORING_GUIDE.md     # 監控指南
+│   ├── CI_CD_GUIDE.md          # CI/CD 指南
 │   ├── DATA_MANAGEMENT.md      # 資料管理指南
-│   └── CONTRIBUTING.md         # 貢獻指南
+│   ├── SECURITY.md             # 安全最佳實踐
+│   ├── CONTRIBUTING.md         # 貢獻指南
+│   ├── DEMO_GUIDE.md           # Demo 展示指南
+│   ├── INTERVIEW_PREP.md       # 面試準備指南
+│   └── PORTFOLIO_GUIDE.md      # 作品集指南
+├── conftest.py                 # Pytest 全局配置
+├── pytest.ini                  # Pytest 配置
+├── pyproject.toml              # 專案元數據
 ├── Dockerfile                  # Docker 映像
 ├── docker-compose.yml          # Docker Compose
 ├── Makefile                    # 開發命令 (35+ 命令)
 ├── dvc.yaml                    # DVC 管道
-└── requirements.txt            # Python 依賴
+├── requirements.txt            # Python 依賴
+└── PROJECT_COMPLETION_REPORT.md # 專案完成報告
 
 ## 🚀 快速開始
 
@@ -200,7 +222,7 @@ pytest --trace-console --metrics-prometheus
 ### ResponseEvaluator - 回應品質評估
 
 ```python
-from models.response_evaluator import ResponseEvaluator
+from ai_models.response_evaluator import ResponseEvaluator
 
 evaluator = ResponseEvaluator()
 result = evaluator.evaluate(
@@ -218,7 +240,7 @@ print(f"總分: {result['overall_score']:.2f}")
 ### HallucinationDetector - 幻覺檢測
 
 ```python
-from models.hallucination_detector import HallucinationDetector
+from ai_models.hallucination_detector import HallucinationDetector
 
 detector = HallucinationDetector()
 result = detector.detect(
@@ -235,7 +257,7 @@ print(f"未支持聲明: {result['unsupported_claims']}")
 ### DriftMonitor - 模型漂移監控
 
 ```python
-from models.drift_monitor import DriftMonitor
+from ai_models.drift_monitor import DriftMonitor
 
 monitor = DriftMonitor(window_size=100)
 
@@ -258,7 +280,7 @@ print(f"變化百分比: {result['change_percentage']:.1f}%")
 ### BiasDetector - 偏見檢測
 
 ```python
-from models.bias_detector import BiasDetector
+from ai_models.bias_detector import BiasDetector
 
 detector = BiasDetector()
 result = detector.detect(
