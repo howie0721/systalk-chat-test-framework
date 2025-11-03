@@ -22,7 +22,7 @@ class TestResponseQuality:
 
     @pytest.mark.ai_quality
     def test_response_accuracy(self):
-        """測試回應準確性 - 應該包含關鍵字且相關"""
+        """TC-AI-0001: 測試回應準確性 - 應該包含關鍵字且相關"""
         # 模擬場景：詢問 Python 資料類型
         context = "Python 的基本資料類型有哪些？"
         response = "Python 的基本資料類型包括整數（int）、浮點數（float）、字串（str）、布林值（bool）、列表（list）、元組（tuple）、集合（set）和字典（dict）。"
@@ -38,7 +38,7 @@ class TestResponseQuality:
 
     @pytest.mark.ai_quality
     def test_response_relevance(self):
-        """測試回應相關性 - 應該與問題相關"""
+        """TC-AI-0002: 測試回應相關性 - 應該與問題相關"""
         context = "如何在 Python 中處理異常？"
         relevant_response = (
             "在 Python 中使用 try-except 語句處理異常。將可能拋出異常的代碼放在 try 區塊中，在 except 區塊捕獲並處理異常。"

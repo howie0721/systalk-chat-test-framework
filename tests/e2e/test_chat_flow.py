@@ -11,7 +11,7 @@ from pages.chat_page import ChatPage
 @pytest.mark.skip(reason="需要實際運行的 SysTalk.Chat 應用程式")
 def test_send_message_and_get_response(page):
     """
-    測試發送訊息並接收 AI 回應
+    TC-E2E-0001: 測試發送訊息並接收 AI 回應
 
     測試流程：
     1. 打開聊天頁面
@@ -40,7 +40,7 @@ def test_send_message_and_get_response(page):
 @pytest.mark.skip(reason="需要實際運行的 SysTalk.Chat 應用程式")
 def test_multiple_messages_conversation(page):
     """
-    測試多輪對話
+    TC-E2E-0002: 測試多輪對話
 
     測試流程：
     1. 打開聊天頁面
@@ -75,7 +75,7 @@ def test_multiple_messages_conversation(page):
 @pytest.mark.skip(reason="需要實際運行的 SysTalk.Chat 應用程式")
 def test_empty_message_validation(page):
     """
-    測試空訊息驗證
+    TC-E2E-0003: 測試空訊息驗證
 
     測試流程：
     1. 打開聊天頁面
@@ -110,7 +110,7 @@ def test_empty_message_validation(page):
 @pytest.mark.skip(reason="需要實際運行的 SysTalk.Chat 應用程式")
 def test_page_reload_preserves_chat(page):
     """
-    測試頁面重新載入後聊天記錄保存
+    TC-E2E-0004: 測試頁面重新載入後聊天記錄保存
 
     測試流程：
     1. 打開聊天頁面
@@ -142,7 +142,7 @@ def test_page_reload_preserves_chat(page):
 @pytest.mark.smoke
 def test_chat_page_mock_demo(page):
     """
-    聊天頁面 Mock 示範測試（不需要實際應用）
+    TC-E2E-0005: 聊天頁面 Mock 示範測試（不需要實際應用）
     展示 POM 的使用方式和測試結構
 
     這個測試用於：

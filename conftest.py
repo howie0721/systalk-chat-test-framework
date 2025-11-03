@@ -94,9 +94,9 @@ def sample_test_cases():
 
 def pytest_configure(config):
     """Pytest 啟動時執行"""
-    print("\n🚀 開始執行測試...")
-    print(f"📁 專案目錄: {Path.cwd()}")
-    print(f"🧪 測試環境: {config.getoption('--env', default='dev')}")
+    print("\n[START] 開始執行測試...")
+    print(f"[INFO] 專案目錄: {Path.cwd()}")
+    print(f"[INFO] 測試環境: {config.getoption('--env', default='dev')}")
 
 
 def pytest_collection_modifyitems(config, items):
