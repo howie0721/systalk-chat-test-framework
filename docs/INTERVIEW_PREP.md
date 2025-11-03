@@ -494,7 +494,7 @@ DVC 是測試資料管理的最佳選擇。
 
    方案 E：Mock 外部依賴
    ```python
-   @patch('models.response_evaluator.load_model')
+   @patch('ai_models.response_evaluator.load_model')
    def test_with_mock(mock_load):
        # 使用 mock 避免真實模型載入
        mock_load.return_value = fake_model

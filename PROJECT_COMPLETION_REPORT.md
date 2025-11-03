@@ -157,14 +157,15 @@ Code Quality Tools
 ```
 systalk-chat-test-framework/
 ├── tests/                      # 測試案例 (34 個)
-├── models/                     # AI 測試工具 (4 個)
+├── ai_models/                  # AI 測試工具 (4 個)
+├── pages/                      # Page Objects (2 個)
+├── fixtures/                   # 測試 Fixtures
 ├── monitoring/                 # 監控系統 (3 個元件)
-├── page_objects/               # Page Objects (2 個)
 ├── utils/                      # 工具程式 (2 個)
 ├── config/                     # 配置檔案
 ├── data/                       # 測試資料 (DVC 管理)
 ├── .github/workflows/          # CI/CD (3 個 workflows)
-├── docs/                       # 文件系統 (9 個文件)
+├── docs/                       # 文件系統 (10 個文件)
 ├── Dockerfile                  # Docker 配置
 ├── docker-compose.yml          # Docker Compose
 ├── Makefile                    # 35+ 命令

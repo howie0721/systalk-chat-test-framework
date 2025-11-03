@@ -157,7 +157,7 @@
 
 **使用範例**:
 ```python
-from models.response_evaluator import ResponseEvaluator
+from ai_models.response_evaluator import ResponseEvaluator
 
 evaluator = ResponseEvaluator()
 result = evaluator.evaluate(
