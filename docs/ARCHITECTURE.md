@@ -477,15 +477,19 @@ systalk-chat-test-framework/
 │   └── security/                   # 安全測試
 │       └── test_prompt_injection.py
 │
-├── models/                         # AI 測試工具
+├── ai_models/                      # AI 測試工具
 │   ├── response_evaluator.py      # 回應評估器
 │   ├── hallucination_detector.py  # 幻覺偵測器
 │   ├── drift_monitor.py           # 漂移監控器
 │   └── bias_detector.py           # 偏見檢測器
 │
-├── page_objects/                   # 頁面物件
+├── pages/                          # 頁面物件 (Page Object Model)
 │   ├── base_page.py               # 基礎頁面類別
 │   └── chat_page.py               # 聊天頁面
+│
+├── fixtures/                       # 測試 Fixtures
+│   ├── api_fixtures.py            # API 測試 fixtures
+│   └── browser_fixtures.py        # 瀏覽器測試 fixtures
 │
 ├── monitoring/                     # 監控系統
 │   ├── observability.py           # OpenTelemetry 整合
@@ -807,14 +811,14 @@ CMD ["pytest", "--trace-console", "--metrics-prometheus"]
 ### 1. 新增測試工具
 
 **步驟**:
-1. 在 `models/` 建立新的工具類別
+1. 在 `ai_models/` 建立新的工具類別
 2. 實作必要的介面
 3. 新增單元測試
 4. 更新文件
 
 **範例**:
 ```python
-# models/sentiment_analyzer.py
+# ai_models/sentiment_analyzer.py
 class SentimentAnalyzer:
     """新的情感分析工具"""
     
