@@ -9,7 +9,7 @@ from pages.chat_page import ChatPage
 
 @pytest.mark.e2e
 @pytest.mark.skip(reason="需要實際運行的 SysTalk.Chat 應用程式")
-def test_send_message_and_get_response(page):
+def test_TC_E2E_0001_send_message_and_get_response(page):
     """
     TC-E2E-0001: 測試發送訊息並接收 AI 回應
 
@@ -38,7 +38,7 @@ def test_send_message_and_get_response(page):
 
 @pytest.mark.e2e
 @pytest.mark.skip(reason="需要實際運行的 SysTalk.Chat 應用程式")
-def test_multiple_messages_conversation(page):
+def test_TC_E2E_0002_multiple_messages_conversation(page):
     """
     TC-E2E-0002: 測試多輪對話
 
@@ -73,7 +73,7 @@ def test_multiple_messages_conversation(page):
 
 @pytest.mark.e2e
 @pytest.mark.skip(reason="需要實際運行的 SysTalk.Chat 應用程式")
-def test_empty_message_validation(page):
+def test_TC_E2E_0003_empty_message_validation(page):
     """
     TC-E2E-0003: 測試空訊息驗證
 
@@ -108,7 +108,7 @@ def test_empty_message_validation(page):
 
 @pytest.mark.e2e
 @pytest.mark.skip(reason="需要實際運行的 SysTalk.Chat 應用程式")
-def test_page_reload_preserves_chat(page):
+def test_TC_E2E_0004_page_reload_preserves_chat(page):
     """
     TC-E2E-0004: 測試頁面重新載入後聊天記錄保存
 
@@ -140,7 +140,7 @@ def test_page_reload_preserves_chat(page):
 
 @pytest.mark.e2e
 @pytest.mark.smoke
-def test_chat_page_mock_demo(page):
+def test_TC_E2E_0005_chat_page_mock_demo(page):
     """
     TC-E2E-0005: 聊天頁面 Mock 示範測試（不需要實際應用）
     展示 POM 的使用方式和測試結構

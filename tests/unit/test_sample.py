@@ -5,7 +5,7 @@ import pytest
 
 @pytest.mark.smoke
 @pytest.mark.unit
-def test_basic_assertion():
+def test_TC_UNIT_0001_basic_assertion():
     """TC-UNIT-0001: 最基礎的測試：驗證 Python 基本運算"""
     # Arrange（準備）
     a = 1
@@ -20,7 +20,7 @@ def test_basic_assertion():
 
 @pytest.mark.smoke
 @pytest.mark.unit
-def test_fixture_usage(sample_chat_message):
+def test_TC_UNIT_0002_fixture_usage(sample_chat_message):
     """TC-UNIT-0002: 測試 fixture 的使用"""
     # 使用 conftest.py 中定義的 fixture
     assert "user_id" in sample_chat_message
@@ -29,7 +29,7 @@ def test_fixture_usage(sample_chat_message):
 
 
 @pytest.mark.unit
-def test_string_operations():
+def test_TC_UNIT_0003_string_operations():
     """TC-UNIT-0003: 測試字串操作"""
     text = "Hello SysTalk.Chat"
 

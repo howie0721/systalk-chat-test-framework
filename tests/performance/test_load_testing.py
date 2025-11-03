@@ -9,7 +9,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 class TestLoadPerformance:
     """負載測試 - TC-PERF-0001"""
 
-    def test_concurrent_requests(self):
+    def test_TC_PERF_0001_concurrent_requests(self):
         """TC-PERF-0001: 並發請求測試
         
         驗證系統在多個並發請求下的表現
@@ -40,7 +40,7 @@ class TestLoadPerformance:
 class TestResponseTime:
     """響應時間測試 - TC-PERF-0002"""
 
-    def test_api_response_time(self):
+    def test_TC_PERF_0002_api_response_time(self):
         """TC-PERF-0002: API 響應時間測試
         
         確保 API 響應時間在可接受範圍內
@@ -62,7 +62,7 @@ class TestResponseTime:
 class TestStressTest:
     """壓力測試 - TC-PERF-0003"""
 
-    def test_high_load_handling(self):
+    def test_TC_PERF_0003_high_load_handling(self):
         """TC-PERF-0003: 高負載處理測試
         
         測試系統在高負載下的穩定性
@@ -94,7 +94,7 @@ class TestStressTest:
 class TestMemoryUsage:
     """記憶體使用測試 - TC-PERF-0004"""
 
-    def test_memory_leak_detection(self):
+    def test_TC_PERF_0004_memory_leak_detection(self):
         """TC-PERF-0004: 記憶體洩漏檢測
         
         確保沒有明顯的記憶體洩漏
@@ -118,7 +118,7 @@ class TestMemoryUsage:
 class TestThroughput:
     """吞吐量測試 - TC-PERF-0005"""
 
-    def test_requests_per_second(self):
+    def test_TC_PERF_0005_requests_per_second(self):
         """TC-PERF-0005: 每秒請求數測試
         
         測量系統每秒可處理的請求數

@@ -7,7 +7,7 @@ import pytest
 class TestInputValidation:
     """輸入驗證測試 - TC-SEC-0001"""
 
-    def test_sql_injection_prevention(self):
+    def test_TC_SEC_0001_sql_injection_prevention(self):
         """TC-SEC-0001: SQL 注入防護測試
         
         確保系統能防止 SQL 注入攻擊
@@ -37,7 +37,7 @@ class TestInputValidation:
 class TestXSSPrevention:
     """XSS 防護測試 - TC-SEC-0002"""
 
-    def test_xss_attack_prevention(self):
+    def test_TC_SEC_0002_xss_attack_prevention(self):
         """TC-SEC-0002: XSS 跨站腳本攻擊防護
         
         確保系統能防止 XSS 攻擊
@@ -69,7 +69,7 @@ class TestXSSPrevention:
 class TestAuthentication:
     """身份驗證測試 - TC-SEC-0003"""
 
-    def test_weak_password_rejection(self):
+    def test_TC_SEC_0003_weak_password_rejection(self):
         """TC-SEC-0003: 弱密碼拒絕測試
         
         確保系統拒絕弱密碼
@@ -88,7 +88,7 @@ class TestAuthentication:
             is_valid = self._validate_password_strength(password)
             assert is_valid is False, f"應該拒絕弱密碼: {password}"
     
-    def test_strong_password_acceptance(self):
+    def test_TC_SEC_0003B_strong_password_acceptance(self):
         """TC-SEC-0003-B: 強密碼接受測試"""
         # Arrange
         strong_passwords = [
@@ -117,7 +117,7 @@ class TestAuthentication:
 class TestDataEncryption:
     """資料加密測試 - TC-SEC-0004"""
 
-    def test_sensitive_data_encryption(self):
+    def test_TC_SEC_0004_sensitive_data_encryption(self):
         """TC-SEC-0004: 敏感資料加密測試
         
         確保敏感資料被正確加密
@@ -151,7 +151,7 @@ class TestDataEncryption:
 class TestAccessControl:
     """訪問控制測試 - TC-SEC-0005"""
 
-    def test_unauthorized_access_prevention(self):
+    def test_TC_SEC_0005_unauthorized_access_prevention(self):
         """TC-SEC-0005: 未授權訪問防護
         
         確保未授權用戶無法訪問受保護資源
@@ -165,7 +165,7 @@ class TestAccessControl:
         # Assert
         assert has_access is False, "未授權用戶不應該訪問受保護資源"
     
-    def test_authorized_access_allowed(self):
+    def test_TC_SEC_0005B_authorized_access_allowed(self):
         """TC-SEC-0005-B: 授權訪問允許測試"""
         # Arrange
         protected_resource = "/admin/dashboard"
@@ -188,7 +188,7 @@ class TestAccessControl:
 class TestSessionSecurity:
     """會話安全測試 - TC-SEC-0006"""
 
-    def test_session_timeout(self):
+    def test_TC_SEC_0006_session_timeout(self):
         """TC-SEC-0006: 會話超時測試
         
         確保會話在一定時間後過期
@@ -217,7 +217,7 @@ class TestSessionSecurity:
 class TestRateLimiting:
     """速率限制測試 - TC-SEC-0007"""
 
-    def test_rate_limiting_enforcement(self):
+    def test_TC_SEC_0007_rate_limiting_enforcement(self):
         """TC-SEC-0007: 速率限制執行測試
         
         確保系統執行速率限制防止 DDoS
