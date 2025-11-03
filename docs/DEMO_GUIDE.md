@@ -2,6 +2,48 @@
 
 > 如何有效展示 SysTalk.Chat 測試框架專案
 
+## 📖 如何使用這份指南
+
+這份指南提供了完整的 Demo 準備資料，包括：
+
+### 🎬 快速開始 - 基本 Demo 流程
+
+**5 分鐘快速 Demo**（適合面試或快速展示）：
+1. 打開終端機，運行測試：`pytest -v`
+2. 展示 AI 工具（Python REPL 或 Jupyter）：
+   ```python
+   from ai_models.response_evaluator import ResponseEvaluator
+   evaluator = ResponseEvaluator()
+   result = evaluator.evaluate(
+       question="什麼是機器學習？",
+       response="機器學習是人工智慧的一個分支..."
+   )
+   print(f"總分: {result['overall_score']:.2f}")
+   ```
+3. 說明核心成果：34 個測試、4 個 AI 工具、完整監控系統
+
+**15-20 分鐘完整 Demo**：
+- 參考下面的 **Demo 大綱** 和 **完整 Demo 腳本**
+- 依序展示：測試執行 → AI 工具 → 監控系統 → CI/CD → 程式碼品質
+
+### 📚 指南結構
+
+- **Demo 大綱**：6 個章節的詳細展示流程
+- **完整 Demo 腳本**：逐字腳本和命令
+- **Demo 技巧**：準備工作、展示技巧、常見問題
+- **視覺材料準備**：截圖、影片、投影片
+- **面試說明準備**：電梯簡報、技術深入、專案亮點
+- **不同場景策略**：面試、技術分享、作品集展示
+
+### 💡 重要提醒
+
+1. **目錄名稱**：專案使用 `ai_models/` 而非 `models/`，`pages/` 而非 `page_objects/`
+2. **環境準備**：Demo 前務必確認所有測試通過：`pytest -v`
+3. **彈性調整**：根據觀眾和時間調整深度和內容
+4. **練習演練**：至少完整演練 2-3 次
+
+---
+
 ## 🎯 Demo 目標
 
 展示你的：
@@ -44,9 +86,9 @@ tree -L 2
 
 # 2. 說明各個目錄的用途
 # tests/      - 測試案例 (單元、整合、E2E、安全)
-# models/     - AI 測試工具 (4 個核心工具)
+# ai_models/  - AI 測試工具 (4 個核心工具)
 # monitoring/ - 監控系統 (OpenTelemetry, Prometheus)
-# page_objects/ - Page Object 模式
+# pages/      - Page Object 模式
 # utils/      - 工具程式 (資料生成、驗證)
 # docs/       - 完整文件系統
 ```
@@ -80,10 +122,10 @@ pytest -m ai_quality    # AI 品質測試
 **ResponseEvaluator - 回應品質評估**:
 
 ```python
-# 打開 models/response_evaluator.py
+# 打開 ai_models/response_evaluator.py
 # 展示核心程式碼
 
-from models.response_evaluator import ResponseEvaluator
+from ai_models.response_evaluator import ResponseEvaluator
 
 evaluator = ResponseEvaluator()
 result = evaluator.evaluate(
@@ -104,7 +146,7 @@ print(f"總分: {result['overall_score']:.2f}")
 **HallucinationDetector - 幻覺偵測**:
 
 ```python
-from models.hallucination_detector import HallucinationDetector
+from ai_models.hallucination_detector import HallucinationDetector
 
 detector = HallucinationDetector()
 result = detector.detect(
@@ -274,7 +316,7 @@ pytest -m ai_quality -v
 
 首先是 ResponseEvaluator：
 
->>> from models.response_evaluator import ResponseEvaluator
+>>> from ai_models.response_evaluator import ResponseEvaluator
 >>> evaluator = ResponseEvaluator()
 >>> 
 >>> result = evaluator.evaluate(
@@ -293,7 +335,7 @@ pytest -m ai_quality -v
 
 接下來是 HallucinationDetector：
 
->>> from models.hallucination_detector import HallucinationDetector
+>>> from ai_models.hallucination_detector import HallucinationDetector
 >>> detector = HallucinationDetector()
 >>> 
 >>> result = detector.detect(
