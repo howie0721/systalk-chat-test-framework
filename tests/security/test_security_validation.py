@@ -23,12 +23,14 @@ class TestInputValidation:
         # Act & Assert
         for malicious_input in malicious_inputs:
             result = self._validate_input(malicious_input)
-            assert result is False, f"未能檢測到 SQL 注入: {malicious_input}"
+            assert result is True, f"未能檢測到 SQL 注入: {malicious_input}"
     
     def _validate_input(self, user_input: str) -> bool:
-        """模擬輸入驗證"""
-        dangerous_patterns = ["DROP", "DELETE", "INSERT", "--", "OR 1=1"]
-        return not any(pattern in user_input.upper() for pattern in dangerous_patterns)
+        """模擬輸入驗證 - 返回 True 表示有危險模式（應拒絕）"""
+        dangerous_patterns = ["DROP", "DELETE", "INSERT", "--", "OR", "1=1", "';"]
+        upper_input = user_input.upper()
+        has_danger = any(pattern in upper_input for pattern in dangerous_patterns)
+        return has_danger  # True = 檢測到危險，應該拒絕
 
 
 @pytest.mark.security

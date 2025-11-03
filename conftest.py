@@ -124,5 +124,5 @@ def pytest_collection_modifyitems(config, items):
 def pytest_terminal_summary(terminalreporter, exitstatus, config):
     """測試完成後顯示摘要"""
     print("\n" + "="*60)
-    print("📊 測試執行摘要")
+    print("[SUMMARY] 測試執行摘要")
     print("="*60)
