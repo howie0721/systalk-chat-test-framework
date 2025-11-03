@@ -1,0 +1,126 @@
+# Prometheus 警報規則
+# 定義測試框架的警報條件
+
+groups:
+  - name: test_execution_alerts
+    interval: 30s
+    rules:
+      # 測試失敗率過高
+      - alert: HighTestFailureRate
+        expr: |
+          (
+            sum(rate(test_executions_total{test_status="failed"}[5m]))
+            /
+            sum(rate(test_executions_total[5m]))
+          ) > 0.2
+        for: 5m
+        labels:
+          severity: warning
+          component: test-framework
+        annotations:
+          summary: "High test failure rate detected"
+          description: "More than 20% of tests are failing in the last 5 minutes"
+
+      # 測試執行時間過長
+      - alert: SlowTestExecution
+        expr: |
+          histogram_quantile(0.95,
+            rate(test_duration_seconds_bucket[5m])
+          ) > 60
+        for: 5m
+        labels:
+          severity: warning
+          component: test-framework
+        annotations:
+          summary: "Slow test execution detected"
+          description: "95th percentile test duration exceeds 60 seconds"
+
+      # 沒有測試執行
+      - alert: NoTestsExecuted
+        expr: |
+          rate(test_executions_total[5m]) == 0
+        for: 10m
+        labels:
+          severity: warning
+          component: test-framework
+        annotations:
+          summary: "No tests executed recently"
+          description: "No test executions detected in the last 10 minutes"
+
+  - name: ai_quality_alerts
+    interval: 30s
+    rules:
+      # 幻覺檢測率過高
+      - alert: HighHallucinationRate
+        expr: |
+          avg(ai_metric{metric_name="hallucination.detected"}) > 0.3
+        for: 5m
+        labels:
+          severity: critical
+          component: ai-quality
+        annotations:
+          summary: "High hallucination rate detected"
+          description: "More than 30% of responses contain hallucinations"
+
+      # 模型品質下降
+      - alert: LowResponseQuality
+        expr: |
+          avg(ai_metric{metric_name=~"response_quality.overall"}) < 0.6
+        for: 10m
+        labels:
+          severity: warning
+          component: ai-quality
+        annotations:
+          summary: "Low response quality detected"
+          description: "Average response quality score is below 0.6"
+
+      # 模型漂移檢測
+      - alert: ModelDriftDetected
+        expr: |
+          avg(ai_metric{metric_name="drift.detected"}) > 0.5
+        for: 15m
+        labels:
+          severity: warning
+          component: ai-quality
+        annotations:
+          summary: "Model drift detected"
+          description: "Significant model drift detected in recent responses"
+
+      # 偏見檢測
+      - alert: BiasDetected
+        expr: |
+          avg(ai_metric{metric_name="bias.detected"}) > 0.4
+        for: 10m
+        labels:
+          severity: warning
+          component: ai-quality
+        annotations:
+          summary: "Bias detected in model responses"
+          description: "More than 40% of responses show bias"
+
+  - name: performance_alerts
+    interval: 30s
+    rules:
+      # AI 模型延遲過高
+      - alert: HighAILatency
+        expr: |
+          avg(ai_metric{metric_name="performance.latency"}) > 5000
+        for: 5m
+        labels:
+          severity: warning
+          component: performance
+        annotations:
+          summary: "High AI model latency"
+          description: "Average AI model latency exceeds 5 seconds"
+
+      # Token 使用量過高
+      - alert: HighTokenUsage
+        expr: |
+          rate(ai_metric{metric_name="performance.token_count"}[5m]) > 10000
+        for: 10m
+        labels:
+          severity: info
+          component: performance
+        annotations:
+          summary: "High token usage rate"
+          description: "Token consumption rate exceeds 10,000 tokens per 5 minutes"

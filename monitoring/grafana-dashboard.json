@@ -1,0 +1,226 @@
+{
+  "dashboard": {
+    "title": "SysTalk.Chat Test Framework Monitoring",
+    "tags": ["testing", "ai", "llm", "quality"],
+    "timezone": "browser",
+    "editable": true,
+    "graphTooltip": 1,
+    "panels": [
+      {
+        "id": 1,
+        "title": "Test Execution Rate",
+        "type": "graph",
+        "gridPos": {"h": 8, "w": 12, "x": 0, "y": 0},
+        "targets": [
+          {
+            "expr": "rate(test_executions_total[5m])",
+            "legendFormat": "{{test_status}}",
+            "refId": "A"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "title": "Test Success Rate",
+        "type": "stat",
+        "gridPos": {"h": 8, "w": 6, "x": 12, "y": 0},
+        "targets": [
+          {
+            "expr": "sum(rate(test_executions_total{test_status=\"passed\"}[5m])) / sum(rate(test_executions_total[5m])) * 100",
+            "refId": "A"
+          }
+        ],
+        "options": {
+          "unit": "percent",
+          "colorMode": "background"
+        }
+      },
+      {
+        "id": 3,
+        "title": "Active Tests",
+        "type": "stat",
+        "gridPos": {"h": 8, "w": 6, "x": 18, "y": 0},
+        "targets": [
+          {
+            "expr": "sum(rate(test_executions_total[1m]))",
+            "refId": "A"
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "title": "Test Duration (95th Percentile)",
+        "type": "graph",
+        "gridPos": {"h": 8, "w": 12, "x": 0, "y": 8},
+        "targets": [
+          {
+            "expr": "histogram_quantile(0.95, rate(test_duration_seconds_bucket[5m]))",
+            "legendFormat": "p95",
+            "refId": "A"
+          },
+          {
+            "expr": "histogram_quantile(0.50, rate(test_duration_seconds_bucket[5m]))",
+            "legendFormat": "p50",
+            "refId": "B"
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "title": "Test Duration Heatmap",
+        "type": "heatmap",
+        "gridPos": {"h": 8, "w": 12, "x": 12, "y": 8},
+        "targets": [
+          {
+            "expr": "rate(test_duration_seconds_bucket[5m])",
+            "format": "heatmap",
+            "refId": "A"
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "title": "Response Quality Score",
+        "type": "gauge",
+        "gridPos": {"h": 8, "w": 6, "x": 0, "y": 16},
+        "targets": [
+          {
+            "expr": "avg(ai_metric{metric_name=\"response_quality.overall\"})",
+            "refId": "A"
+          }
+        ],
+        "options": {
+          "min": 0,
+          "max": 1,
+          "thresholds": [
+            {"value": 0, "color": "red"},
+            {"value": 0.6, "color": "yellow"},
+            {"value": 0.8, "color": "green"}
+          ]
+        }
+      },
+      {
+        "id": 7,
+        "title": "Hallucination Detection Rate",
+        "type": "gauge",
+        "gridPos": {"h": 8, "w": 6, "x": 6, "y": 16},
+        "targets": [
+          {
+            "expr": "avg(ai_metric{metric_name=\"hallucination.detected\"})",
+            "refId": "A"
+          }
+        ],
+        "options": {
+          "min": 0,
+          "max": 1,
+          "thresholds": [
+            {"value": 0, "color": "green"},
+            {"value": 0.2, "color": "yellow"},
+            {"value": 0.4, "color": "red"}
+          ]
+        }
+      },
+      {
+        "id": 8,
+        "title": "Model Drift Score",
+        "type": "gauge",
+        "gridPos": {"h": 8, "w": 6, "x": 12, "y": 16},
+        "targets": [
+          {
+            "expr": "avg(ai_metric{metric_name=\"drift.score\"})",
+            "refId": "A"
+          }
+        ],
+        "options": {
+          "min": 0,
+          "max": 1,
+          "thresholds": [
+            {"value": 0, "color": "green"},
+            {"value": 0.3, "color": "yellow"},
+            {"value": 0.6, "color": "red"}
+          ]
+        }
+      },
+      {
+        "id": 9,
+        "title": "Bias Detection Score",
+        "type": "gauge",
+        "gridPos": {"h": 8, "w": 6, "x": 18, "y": 16},
+        "targets": [
+          {
+            "expr": "avg(ai_metric{metric_name=\"bias.score\"})",
+            "refId": "A"
+          }
+        ],
+        "options": {
+          "min": 0,
+          "max": 1,
+          "thresholds": [
+            {"value": 0, "color": "green"},
+            {"value": 0.3, "color": "yellow"},
+            {"value": 0.5, "color": "red"}
+          ]
+        }
+      },
+      {
+        "id": 10,
+        "title": "AI Quality Metrics Over Time",
+        "type": "graph",
+        "gridPos": {"h": 8, "w": 24, "x": 0, "y": 24},
+        "targets": [
+          {
+            "expr": "avg(ai_metric{metric_name=\"response_quality.overall\"})",
+            "legendFormat": "Quality Score",
+            "refId": "A"
+          },
+          {
+            "expr": "avg(ai_metric{metric_name=\"hallucination.confidence\"})",
+            "legendFormat": "Hallucination Confidence",
+            "refId": "B"
+          },
+          {
+            "expr": "avg(ai_metric{metric_name=\"bias.fairness_score\"})",
+            "legendFormat": "Fairness Score",
+            "refId": "C"
+          }
+        ]
+      },
+      {
+        "id": 11,
+        "title": "AI Model Latency",
+        "type": "graph",
+        "gridPos": {"h": 8, "w": 12, "x": 0, "y": 32},
+        "targets": [
+          {
+            "expr": "avg(ai_metric{metric_name=\"performance.latency\"}) by (model_name)",
+            "legendFormat": "{{model_name}}",
+            "refId": "A"
+          }
+        ],
+        "yaxes": [
+          {
+            "format": "ms"
+          }
+        ]
+      },
+      {
+        "id": 12,
+        "title": "Token Usage Rate",
+        "type": "graph",
+        "gridPos": {"h": 8, "w": 12, "x": 12, "y": 32},
+        "targets": [
+          {
+            "expr": "rate(ai_metric{metric_name=\"performance.token_count\"}[5m])",
+            "legendFormat": "{{model_name}}",
+            "refId": "A"
+          }
+        ]
+      }
+    ],
+    "time": {
+      "from": "now-6h",
+      "to": "now"
+    },
+    "refresh": "30s"
+  }
+}

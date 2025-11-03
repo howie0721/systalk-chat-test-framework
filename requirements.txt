@@ -36,3 +36,11 @@ allure-pytest==2.13.2
 # 工具
 python-dotenv==1.0.0
 pyyaml==6.0.1
+
+# 監控與可觀測性
+opentelemetry-api==1.38.0
+opentelemetry-sdk==1.38.0
+opentelemetry-exporter-otlp==1.38.0
+opentelemetry-exporter-prometheus==0.59b0
+opentelemetry-instrumentation-requests==0.59b0
+prometheus-client==0.19.0

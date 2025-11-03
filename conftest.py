@@ -9,6 +9,7 @@ from pathlib import Path
 pytest_plugins = [
     "fixtures.browser_fixtures",
     "fixtures.api_fixtures",
+    "monitoring.pytest_plugin",  # 監控整合
 ]
 
 

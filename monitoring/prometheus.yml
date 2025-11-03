@@ -1,0 +1,42 @@
+# Prometheus 配置檔案
+# 用於收集 SysTalk.Chat 測試框架的指標
+
+global:
+  scrape_interval: 15s  # 每 15 秒抓取一次指標
+  evaluation_interval: 15s  # 每 15 秒評估一次規則
+  external_labels:
+    cluster: 'test-framework'
+    environment: 'development'
+
+# 警報管理器配置
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+          # - alertmanager:9093
+
+# 規則檔案
+rule_files:
+  - "alerts.yml"
+
+# 抓取配置
+scrape_configs:
+  # 測試框架指標
+  - job_name: 'systalk-tests'
+    static_configs:
+      - targets: ['localhost:9464']
+        labels:
+          service: 'test-framework'
+          component: 'pytest'
+
+  # Prometheus 自身監控
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  # 如果有其他服務，可以添加更多 job
+  # - job_name: 'systalk-api'
+  #   static_configs:
+  #     - targets: ['localhost:8000']
+  #       labels:
+  #         service: 'api'
